@@ -3,7 +3,7 @@
 class ProductItem extends HTMLElement {
   constructor() {
     super(); // inherets everything from HTMLElement
-    this.attachShadow({ mode: 'open' }); // Creates the Shadow DOM
+    this.attachShadow({ mode: "open" }); // Creates the Shadow DOM
   }
 
   set data(data) {
@@ -11,7 +11,7 @@ class ProductItem extends HTMLElement {
     this.inCart = false; // A flag that marks whether the item is in the cart
 
     // Store the element styles in a <style> block, needed bc of the shadow DOM
-    const styles = document.createElement('style');
+    const styles = document.createElement("style");
     styles.innerHTML = `
       .price {
         color: green;
@@ -81,41 +81,41 @@ class ProductItem extends HTMLElement {
     `;
 
     // Create the outer wrapper for the product to nest inside
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('product');
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("product");
 
     // Create the product image element
-    const img = document.createElement('img');
-    img.setAttribute('src', data.image);
-    img.setAttribute('alt', data.title);
-    img.setAttribute('width', 200);
+    const img = document.createElement("img");
+    img.setAttribute("src", data.image);
+    img.setAttribute("alt", data.title);
+    img.setAttribute("width", 200);
 
     // Create the product title
-    const title = document.createElement('p');
-    title.classList.add('title');
+    const title = document.createElement("p");
+    title.classList.add("title");
     title.innerHTML = data.title;
 
     // Create the product price
-    const price = document.createElement('p');
-    price.classList.add('price');
+    const price = document.createElement("p");
+    price.classList.add("price");
     price.innerHTML = `$${data.price.toFixed(2)}`;
 
     // Create the "Add to Cart button"
-    const button = document.createElement('button');
-    button.innerHTML = 'Add to Cart';
+    const button = document.createElement("button");
+    button.innerHTML = "Add to Cart";
 
     // Assigning "this" to variable to access inside func
     const prodItem = this;
     // Create new Events to fire when the element is added / removed
     // from the cart
-    const addedToCart = new Event('addedToCart');
-    const removedFromCart = new Event('removedFromCart');
-    button.addEventListener('click', () => {
+    const addedToCart = new Event("addedToCart");
+    const removedFromCart = new Event("removedFromCart");
+    button.addEventListener("click", () => {
       if (!this.inCart) {
-        button.innerHTML = 'Remove from Cart';
+        button.innerHTML = "Remove from Cart";
         prodItem.dispatchEvent(addedToCart);
       } else {
-        button.innerHTML = 'Add to Cart';
+        button.innerHTML = "Add to Cart";
         prodItem.dispatchEvent(removedFromCart);
       }
       this.inCart = !this.inCart;
@@ -135,9 +135,9 @@ class ProductItem extends HTMLElement {
   // Updates the item to show that it's already in the cart. Useful
   // for page reloads so you don't accidentally update the storage twice
   alreadyInCart() {
-    this.shadowRoot.querySelector('button').innerHTML = 'Remove from Cart';
+    this.shadowRoot.querySelector("button").innerHTML = "Remove from Cart";
     this.inCart = true;
   }
 }
 
-customElements.define('product-item', ProductItem);
+customElements.define("product-item", ProductItem);
